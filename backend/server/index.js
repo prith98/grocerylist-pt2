@@ -31,7 +31,8 @@ app.post('/api/groceries', (req, res) => {
       res.send(err);
       return;
     }
-    res.send('Successfully added entry to db');
+    console.log('POST REQUEST SUCCESSFUL');
+    res.send('POST REQUEST SUCCESSFUL');
   })
 });
 
