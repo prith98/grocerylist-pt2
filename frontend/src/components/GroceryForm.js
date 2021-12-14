@@ -47,6 +47,14 @@ class GroceryForm extends React.Component {
       .then(this.refreshState)
   }
 
+  editGrocery(event) {
+    event.preventDefault();
+    this.setState({
+      name: event.target.name,
+
+    })
+  }
+
   render() {
 
     return (

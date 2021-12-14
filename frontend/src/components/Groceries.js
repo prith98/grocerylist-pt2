@@ -36,6 +36,13 @@ class Groceries extends React.Component {
       })
   }
 
+  deleteGrocery(event) {
+    event.preventDefault()
+    axios
+      .delete('/api/groceries', {data: {"name": event.target.name}})
+    this.refreshGroceries()
+  }
+
   render() {
 
     return (
@@ -50,6 +57,8 @@ class Groceries extends React.Component {
             <div name={oneItem.quantity}>Quantity: {oneItem.quantity}</div>
             <div name={oneItem.best_before}>Best Before: {oneItem.best_before}</div>
             <div name={oneItem.purchased}>Purchased: {oneItem.purchased}</div>
+            <button type="button" name={oneItem.name} onClick={this.deleteGrocery}> Delete </button>
+            <button type="button"> Edit </button>
           </div>
 
         ))}

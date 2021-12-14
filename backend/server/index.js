@@ -36,6 +36,20 @@ app.post('/api/groceries', (req, res) => {
   })
 });
 
+app.delete('/api/groceries', (req, res) => {
+  const {name} = req.body;
+  db.query('DELETE FROM groceries WHERE (name = (?))', [name], (err) => {
+    if (err) {
+      throw new Error (err);
+      console.log(err);
+      res.send(err);
+      return;
+    }
+    console.log('DELETE REQUEST SUCCESSFUL');
+    res.send('DELETE REQUEST SUCCESFUL');
+  })
+})
+
 
 app.listen(PORT, () => {
   console.log(`I'm listening on port: ${PORT}`);
