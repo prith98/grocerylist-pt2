@@ -43,6 +43,7 @@ class GroceryForm extends React.Component {
     event.preventDefault();
     axios
       .post('/api/groceries', this.state)
+      .then(this.props.refresh)
       .then(this.refreshState)
   }
 
