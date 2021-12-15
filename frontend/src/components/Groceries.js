@@ -9,21 +9,12 @@ class Groceries extends React.Component {
     super(props);
 
     this.state = {
-      groceries: []
+      groceries: [],
+      add_edit: 'Add Grocery'
     }
 
     this.refreshGroceries = this.refreshGroceries.bind(this);
-
-  }
-
-  componentDidMount() {
-    axios
-      .get('/api/groceries')
-      .then(({data}) => {
-        this.setState({
-          groceries: data
-        })
-      })
+    this.deleteGrocery = this.deleteGrocery.bind(this);
   }
 
   refreshGroceries() {
@@ -37,11 +28,16 @@ class Groceries extends React.Component {
   }
 
   deleteGrocery(event) {
-    event.preventDefault()
     axios
       .delete('/api/groceries', {data: {"name": event.target.name}})
-    this.refreshGroceries()
+      .then(this.refreshGroceries());
+
   }
+
+  componentDidMount() {
+    this.refreshGroceries();
+  }
+
 
   render() {
 
@@ -50,7 +46,7 @@ class Groceries extends React.Component {
       <div>
         <img src="grocery-bags.png"/>
         <h1>Grocery List</h1>
-        <GroceryForm refresh={this.refreshGroceries} groceries={this.state.groceries}/>
+        <GroceryForm refresh={this.refreshGroceries} groceries={this.state.groceries} add_edit={this.state.add_edit}/>
         {this.state.groceries.map(oneItem => (
           <div id ="listItem">
             <div name={oneItem.name}>Name: {oneItem.name}</div>

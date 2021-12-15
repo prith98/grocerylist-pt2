@@ -50,8 +50,7 @@ class GroceryForm extends React.Component {
   editGrocery(event) {
     event.preventDefault();
     this.setState({
-      name: event.target.name,
-
+      name: event.target.name
     })
   }
 
@@ -98,7 +97,7 @@ class GroceryForm extends React.Component {
           <button
           name="add"
           onClick={this.sendGrocery}>
-          Add Grocery
+          {this.props.add_edit}
           </button>
         </form>
     )
