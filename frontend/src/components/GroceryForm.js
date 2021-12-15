@@ -18,6 +18,15 @@ class GroceryForm extends React.Component {
     this.sendGrocery = this.sendGrocery.bind(this);
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({
+      name: nextProps.groceryToEdit.name || '',
+      quantity: nextProps.groceryToEdit.quantity || '',
+      best_before: nextProps.groceryToEdit.best_before || '',
+      purchased: nextProps.groceryToEdit.purchased || false
+    })
+  }
+
   eventHandler(event) {
     if (event.target.name !== 'purchased') {
       this.setState({

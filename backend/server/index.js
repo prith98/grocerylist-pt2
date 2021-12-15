@@ -36,9 +36,8 @@ app.post('/api/groceries', (req, res) => {
   })
 });
 
-app.delete('/api/groceries', (req, res) => {
-  const {name} = req.body;
-  db.query('DELETE FROM groceries WHERE name = (?)', [name], function (err, result, fields) {
+app.delete('/api/groceries/:id', (req, res) => {
+  db.query('DELETE FROM groceries WHERE id = (?)', [req.params.id], function (err, result, fields) {
     if (err) {
       throw new Error (err);
       console.log(err);

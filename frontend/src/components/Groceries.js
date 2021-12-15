@@ -10,7 +10,8 @@ class Groceries extends React.Component {
 
     this.state = {
       groceries: [],
-      add_edit: 'Add Grocery'
+      add_edit: 'Add Grocery',
+      groceryToEdit: {}
     }
 
     this.refreshGroceries = this.refreshGroceries.bind(this);
@@ -28,15 +29,15 @@ class Groceries extends React.Component {
       })
   }
 
-  deleteGrocery(event) {
+  deleteGrocery(id) {
     axios
-      .delete('/api/groceries', {data: {"name": event.target.name}})
+      .delete(`/api/groceries/${id}`)
       .then(this.refreshGroceries());
   }
 
-  editGrocery(event, cb) {
+  editGrocery(grocery) {
     this.setState({
-      add_edit: "Edit Grocery"
+      groceryToEdit: grocery
     })
   }
 
@@ -52,15 +53,19 @@ class Groceries extends React.Component {
       <div>
         <img src="grocery-bags.png"/>
         <h1>Grocery List</h1>
-        <GroceryForm refresh={this.refreshGroceries} groceries={this.state.groceries} add_edit={this.state.add_edit}/>
+        <GroceryForm refresh={this.refreshGroceries} groceries={this.state.groceries} add_edit={this.state.add_edit} groceryToEdit={this.state.groceryToEdit}/>
         {this.state.groceries.map(oneItem => (
           <div id ="listItem">
             <div name={oneItem.name}>Name: {oneItem.name}</div>
             <div name={oneItem.quantity}>Quantity: {oneItem.quantity}</div>
             <div name={oneItem.best_before}>Best Before: {oneItem.best_before}</div>
             <div name={oneItem.purchased}>Purchased: {oneItem.purchased}</div>
-            <button type="button" name={oneItem.name} onClick={this.deleteGrocery}> Delete </button>
-            <button type="button" onClick={this.editGrocery}> Edit </button>
+            <button type="button" name={oneItem.name} onClick={() => {
+              this.deleteGrocery(oneItem.id)
+            }}> Delete </button>
+            <button type="button" onClick={() => {
+              this.editGrocery(oneItem)
+            }}> Edit </button>
           </div>
 
         ))}
