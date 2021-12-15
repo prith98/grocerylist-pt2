@@ -43,15 +43,8 @@ class GroceryForm extends React.Component {
     event.preventDefault();
     axios
       .post('/api/groceries', this.state)
-      .then(this.props.refresh)
-      .then(this.refreshState)
-  }
-
-  editGrocery(event) {
-    event.preventDefault();
-    this.setState({
-      name: event.target.name
-    })
+      .then(this.props.refresh())
+      .then(this.refreshState())
   }
 
   render() {

@@ -15,6 +15,7 @@ class Groceries extends React.Component {
 
     this.refreshGroceries = this.refreshGroceries.bind(this);
     this.deleteGrocery = this.deleteGrocery.bind(this);
+    this.editGrocery = this.editGrocery.bind(this);
   }
 
   refreshGroceries() {
@@ -31,7 +32,12 @@ class Groceries extends React.Component {
     axios
       .delete('/api/groceries', {data: {"name": event.target.name}})
       .then(this.refreshGroceries());
+  }
 
+  editGrocery(event, cb) {
+    this.setState({
+      add_edit: "Edit Grocery"
+    })
   }
 
   componentDidMount() {
@@ -54,7 +60,7 @@ class Groceries extends React.Component {
             <div name={oneItem.best_before}>Best Before: {oneItem.best_before}</div>
             <div name={oneItem.purchased}>Purchased: {oneItem.purchased}</div>
             <button type="button" name={oneItem.name} onClick={this.deleteGrocery}> Delete </button>
-            <button type="button"> Edit </button>
+            <button type="button" onClick={this.editGrocery}> Edit </button>
           </div>
 
         ))}

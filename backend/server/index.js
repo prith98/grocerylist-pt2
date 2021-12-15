@@ -50,6 +50,19 @@ app.delete('/api/groceries', (req, res) => {
   });
 });
 
+app.put('/api/groceries', (req, res) => {
+  const {name, quantity, purchased} = req.body;
+  db.query('UPDATE groceries SET quantity = (?), purchased = (?) WHERE name = (?)', [quantity, purchased, name], (err, data) => {
+    if (err) {
+      throw new Error (err);
+      console.log(err);
+      res.send(err);
+    }
+    console.log('PUT REQUEST SUCCESSFUL');
+    res.send(data);
+  });
+})
+
 
 app.listen(PORT, () => {
   console.log(`I'm listening on port: ${PORT}`);
